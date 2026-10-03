@@ -1,396 +1,519 @@
-# Fraud Detection Using Machine Learning
+# 🛡️ Fraud Detection using Machine Learning
 
-A machine learning project for detecting fraudulent financial transactions using transaction-level behavioral and balance information. The project explores transaction patterns, addresses class imbalance using SMOTE, compares multiple classification algorithms, and applies hyperparameter optimization to improve fraud detection performance.
+<p align="center">
 
-## Project Overview
+**An end-to-end Machine Learning project for detecting fraudulent financial transactions**
 
-Fraud detection is a critical problem in banking and fintech because fraudulent transactions can result in significant financial losses.
+<br>
 
-This project builds a classification-based fraud detection system that predicts whether a financial transaction is fraudulent or legitimate.
+<img src="https://img.shields.io/badge/Python-3.x-blue?style=for-the-badge&logo=python&logoColor=white"/>
+<img src="https://img.shields.io/badge/Scikit--Learn-ML-orange?style=for-the-badge&logo=scikit-learn&logoColor=white"/>
+<img src="https://img.shields.io/badge/SMOTE-Imbalanced%20Learning-purple?style=for-the-badge"/>
+<img src="https://img.shields.io/badge/Pandas-Data%20Analysis-150458?style=for-the-badge&logo=pandas&logoColor=white"/>
+<img src="https://img.shields.io/badge/Status-Completed-success?style=for-the-badge"/>
 
-The workflow includes:
+</p>
 
-- Exploratory Data Analysis
-- Data preprocessing
-- Categorical feature encoding
-- Feature scaling
-- Class imbalance handling using SMOTE
-- Train-test splitting
-- Logistic Regression
-- Random Forest
-- Gradient Boosting
-- GridSearchCV
-- RandomizedSearchCV
-- Model performance comparison
-- Confusion matrix analysis
+---
 
-## Problem Statement
+## 🚨 Project Overview
 
-The objective is to identify potentially fraudulent financial transactions based on transaction characteristics such as transaction type, transaction amount, account balances, and sender/receiver information.
+Financial fraud is a major challenge for banking and fintech platforms. A fraud detection system must identify suspicious transactions while minimizing false alarms.
 
-The target variable is `isFraud`:
+This project applies **Machine Learning classification techniques** to analyze financial transaction patterns and classify transactions as:
 
-- `0` = Legitimate transaction
-- `1` = Fraudulent transaction
+```text
+0 → Legitimate Transaction
+1 → Fraudulent Transaction
+```
 
-## Dataset
+The project covers the complete ML workflow:
 
-The dataset contains **11,142 transactions and 10 columns**.
+> **Data → EDA → Preprocessing → SMOTE → Model Training → Hyperparameter Optimization → Evaluation**
 
-### Features
+---
+
+## 🎯 Objectives
+
+- 🔍 Analyze transaction behavior and financial patterns
+- 🧹 Perform data preprocessing and exploratory analysis
+- ⚖️ Handle class imbalance using **SMOTE**
+- 🤖 Train multiple classification algorithms
+- 🔧 Optimize model hyperparameters
+- 📊 Compare model performance
+- 🚨 Identify fraudulent transactions
+- 📈 Evaluate models using multiple classification metrics
+
+---
+
+# 📊 Dataset
+
+The dataset used in the project contains:
+
+| Property | Value |
+|---|---:|
+| 📌 Transactions | **11,142** |
+| 📌 Features | **10** |
+| 📌 Target Variable | `isFraud` |
+| 📌 Numerical Features | 7 |
+| 📌 Categorical Features | 3 |
+
+### Dataset Features
 
 | Feature | Description |
 |---|---|
-| `step` | Unit of simulated time, where one step represents one hour |
-| `type` | Transaction type |
+| `step` | Unit of simulated time, where 1 step represents 1 hour |
+| `type` | Type of financial transaction |
 | `amount` | Transaction amount |
-| `nameOrig` | Customer who initiated the transaction |
-| `oldbalanceOrg` | Sender's balance before the transaction |
-| `newbalanceOrig` | Sender's balance after the transaction |
-| `nameDest` | Recipient of the transaction |
-| `oldbalanceDest` | Recipient's balance before the transaction |
-| `newbalanceDest` | Recipient's balance after the transaction |
-| `isFraud` | Target variable indicating fraudulent transaction |
+| `nameOrig` | Customer initiating the transaction |
+| `oldbalanceOrg` | Sender balance before transaction |
+| `newbalanceOrig` | Sender balance after transaction |
+| `nameDest` | Transaction recipient |
+| `oldbalanceDest` | Recipient balance before transaction |
+| `newbalanceDest` | Recipient balance after transaction |
+| `isFraud` | Fraud classification target |
 
-### Transaction Types
-
-The dataset contains transaction types including:
-
-- CASH-IN
-- CASH-OUT
-- DEBIT
-- PAYMENT
-- TRANSFER
-
-## Machine Learning Workflow
+### 💳 Transaction Types
 
 ```text
-Raw Transaction Data
-        │
-        ▼
-Exploratory Data Analysis
-        │
-        ▼
-Data Preprocessing
-        │
-        ├── Categorical Encoding
-        └── Feature Scaling
-        │
-        ▼
-Class Imbalance Handling
-        │
-        └── SMOTE
-        │
-        ▼
-Train-Test Split
-        │
-        ▼
-Model Training
-        │
-        ├── Logistic Regression
-        ├── Random Forest
-        └── Gradient Boosting
-        │
-        ▼
-Hyperparameter Optimization
-        │
-        ├── GridSearchCV
-        └── RandomizedSearchCV
-        │
-        ▼
-Model Evaluation
-        │
-        ├── Accuracy
-        ├── Precision
-        ├── Recall
-        ├── F1 Score
-        └── Confusion Matrix
+CASH-IN
+CASH-OUT
+DEBIT
+PAYMENT
+TRANSFER
 ```
 
-## Data Preprocessing
+---
 
-The preprocessing pipeline includes:
+# 🧠 Machine Learning Pipeline
 
-### 1. Categorical Encoding
+```mermaid
+flowchart LR
 
-Categorical transaction information is converted into numerical form using `LabelEncoder`.
+A[📁 Transaction Dataset] --> B[🔎 Exploratory Data Analysis]
 
-### 2. Feature Scaling
+B --> C[🧹 Data Preprocessing]
 
-`StandardScaler` is used to standardize numerical features.
+C --> D[🔤 Categorical Encoding]
 
-### 3. Handling Class Imbalance
+D --> E[📏 Feature Scaling]
 
-Fraud detection datasets can contain an imbalance between fraudulent and legitimate transactions.
+E --> F[⚖️ SMOTE]
 
-SMOTE (Synthetic Minority Oversampling Technique) is used to generate synthetic samples for the minority class.
+F --> G[🤖 Model Training]
+
+G --> H1[📈 Logistic Regression]
+G --> H2[🌲 Random Forest]
+G --> H3[🚀 Gradient Boosting]
+
+H1 --> I[🔧 Hyperparameter Optimization]
+H2 --> I
+H3 --> I
+
+I --> J[📊 Model Evaluation]
+
+J --> K[🏆 Best Performing Model]
+```
+
+---
+
+# 🔍 Exploratory Data Analysis
+
+The notebook performs several stages of exploratory analysis to understand:
+
+- Dataset dimensions
+- Data types
+- Missing values
+- Statistical distributions
+- Transaction types
+- Fraud distribution
+- Numerical feature relationships
+- Feature correlations
+
+### Dataset Structure
+
+```text
+11,142 Rows
+      │
+      ├── 9 Independent Features
+      │
+      └── 1 Target Feature
+              │
+              └── isFraud
+```
+
+---
+
+# ⚙️ Data Preprocessing
+
+## 1️⃣ Categorical Encoding
+
+Categorical variables are converted into numerical representations using encoding techniques.
+
+## 2️⃣ Feature Scaling
+
+Numerical features are standardized using:
+
+```python
+StandardScaler()
+```
+
+## 3️⃣ Class Imbalance
+
+Fraud detection datasets commonly contain an imbalance between legitimate and fraudulent transactions.
+
+To address this, the project uses:
+
+```python
+SMOTE
+```
+
+### SMOTE
+
+**Synthetic Minority Over-sampling Technique**
+
+SMOTE creates synthetic samples for the minority class rather than simply duplicating existing observations.
 
 ```python
 from imblearn.over_sampling import SMOTE
 
-smote = SMOTE(sampling_strategy='auto', random_state=42)
+smote = SMOTE(
+    sampling_strategy="auto",
+    random_state=42
+)
 
 X_res, y_res = smote.fit_resample(X, y)
 ```
 
-## Models Used
+---
 
-### Logistic Regression
+# 🤖 Machine Learning Models
 
-Logistic Regression is used as the baseline classification model.
+Three classification algorithms were explored.
 
-It provides an interpretable baseline for determining whether transaction characteristics can distinguish fraudulent transactions.
+### 📌 Logistic Regression
 
-### Random Forest
+Used as the baseline classification model.
 
-Random Forest is used as an ensemble classification model capable of learning nonlinear relationships between transaction features.
-
-Two hyperparameter optimization approaches were evaluated:
-
-- GridSearchCV
-- RandomizedSearchCV
-
-### Gradient Boosting
-
-Gradient Boosting is evaluated as another ensemble learning approach that builds models sequentially to improve classification performance.
-
-Both GridSearchCV and RandomizedSearchCV were used for optimization.
-
-## Hyperparameter Optimization
-
-### Random Forest
-
-The project searches parameters including:
-
-```python
-{
-    'n_estimators': [50, 100, 200, 300],
-    'bootstrap': [True, False],
-    'max_depth': [10, 20, 30],
-    'min_samples_split': [2, 5, 10]
-}
+```text
+Purpose:
+Establish a simple and interpretable baseline.
 ```
 
-RandomizedSearchCV evaluates a randomized subset of parameter combinations.
+### 🌲 Random Forest
 
-### Gradient Boosting
+An ensemble learning algorithm based on multiple decision trees.
 
-The project explores:
-
-```python
-{
-    'learning_rate': [0.01, 0.1, 0.2],
-    'max_depth': [3, 5, 7, 10],
-    'n_estimators': [100, 200, 300]
-}
+```text
+Advantages:
+✓ Handles nonlinear relationships
+✓ Robust to complex feature interactions
+✓ Ensemble-based prediction
 ```
 
-## Model Performance
+### 🚀 Gradient Boosting
 
-The notebook compares the following models:
+Sequentially builds decision trees where each new model attempts to improve previous predictions.
+
+```text
+Advantages:
+✓ Strong classification performance
+✓ Captures nonlinear patterns
+✓ Effective ensemble technique
+```
+
+---
+
+# 🔧 Hyperparameter Optimization
+
+To improve model performance, the project evaluates:
+
+### GridSearchCV
+
+Systematically searches through predefined combinations of hyperparameters.
+
+### RandomizedSearchCV
+
+Randomly samples hyperparameter combinations, allowing efficient exploration of larger search spaces.
+
+---
+
+# 📈 Model Performance
+
+The notebook reports the following evaluation results:
 
 | Model | Accuracy | Precision | Recall | F1 Score |
 |---|---:|---:|---:|---:|
 | Logistic Regression | 96.35% | 99.56% | 92.96% | 96.15% |
 | Random Forest + GridSearchCV | 99.93% | 100.00% | 99.85% | 99.92% |
-| Random Forest + RandomizedSearchCV | **99.95%** | **100.00%** | **99.90%** | **99.95%** |
+| ⭐ Random Forest + RandomizedSearchCV | **99.95%** | **100.00%** | **99.90%** | **99.95%** |
 | Gradient Boosting + GridSearchCV | 99.90% | 99.95% | 99.85% | 99.90% |
 | Gradient Boosting + RandomizedSearchCV | 99.93% | 100.00% | 99.85% | 99.92% |
 
-According to the notebook's evaluation, Random Forest with RandomizedSearchCV produced the highest F1 score.
+### 🏆 Best Reported Result
 
-## Evaluation Metrics
+```text
+Model      : Random Forest
+Optimization : RandomizedSearchCV
+
+Accuracy   : 99.95%
+Precision  : 100.00%
+Recall     : 99.90%
+F1 Score   : 99.95%
+```
+
+> ⚠️ **Important:** These metrics come directly from the current notebook. The current implementation performs SMOTE before the train-test split, which can introduce data leakage. For a rigorous portfolio version, SMOTE should be applied only to the training data and the model should be evaluated again.
+
+---
+
+# 📊 Evaluation Metrics
+
+The project evaluates models using:
 
 ### Accuracy
 
-Measures the proportion of correctly classified transactions.
+Measures the overall percentage of correctly classified transactions.
 
 ### Precision
 
-Measures how many transactions predicted as fraudulent were actually fraudulent.
+Measures how many transactions predicted as fraud were actually fraudulent.
 
 ### Recall
 
-Measures how many actual fraudulent transactions were successfully detected.
-
-Recall is particularly important in fraud detection because missing fraudulent transactions can result in financial losses.
+Measures how many actual fraudulent transactions were detected.
 
 ### F1 Score
 
-The F1 score combines precision and recall into a single metric and is useful when evaluating classification performance across imbalanced classes.
+Harmonic mean of precision and recall.
 
-## Confusion Matrix
+For fraud detection, recall is particularly important because failing to detect fraudulent transactions can have financial consequences.
 
-The project generates confusion matrices for the tuned Random Forest and Gradient Boosting models to visualize:
+---
 
-- True Positives
-- True Negatives
-- False Positives
-- False Negatives
+# 🔥 Confusion Matrix
 
-These results help analyze how effectively the models distinguish fraudulent and legitimate transactions.
+The project also evaluates classification behavior using confusion matrices.
 
-## Technologies Used
+```text
+                    Predicted
+                 Legit      Fraud
+              ┌─────────┬─────────┐
+Actual Legit  │   TN    │   FP    │
+              ├─────────┼─────────┤
+Actual Fraud  │   FN    │   TP    │
+              └─────────┴─────────┘
+```
 
-### Programming Language
+Where:
 
-- Python
+```text
+TN → Correctly identified legitimate transactions
+TP → Correctly identified fraudulent transactions
+FP → Legitimate transaction incorrectly flagged as fraud
+FN → Fraudulent transaction incorrectly classified as legitimate
+```
 
-### Data Processing
+---
 
-- Pandas
-- NumPy
+# 🛠️ Technology Stack
+
+### Programming
+
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
+
+### Data Analysis
+
+![Pandas](https://img.shields.io/badge/Pandas-150458?style=flat-square&logo=pandas&logoColor=white)
+![NumPy](https://img.shields.io/badge/NumPy-013243?style=flat-square&logo=numpy&logoColor=white)
 
 ### Visualization
 
-- Matplotlib
-- Seaborn
+![Matplotlib](https://img.shields.io/badge/Matplotlib-11557C?style=flat-square)
+![Seaborn](https://img.shields.io/badge/Seaborn-4C72B0?style=flat-square)
 
 ### Machine Learning
 
-- Scikit-learn
-- Logistic Regression
-- Random Forest
-- Gradient Boosting
-- GridSearchCV
-- RandomizedSearchCV
+![Scikit Learn](https://img.shields.io/badge/Scikit--Learn-F7931E?style=flat-square&logo=scikit-learn&logoColor=white)
 
 ### Imbalanced Learning
 
-- Imbalanced-learn
-- SMOTE
+![Imbalanced Learn](https://img.shields.io/badge/Imbalanced--Learn-SMOTE-purple?style=flat-square)
 
-## Project Structure
+### Environment
 
-```text
-Fraud-Detection/
-│
-├── Fraud Detection.ipynb
-├── Fraud_Analysis_Dataset.csv
-├── README.md
-└── requirements.txt
-```
+![Google Colab](https://img.shields.io/badge/Google%20Colab-F9AB00?style=flat-square&logo=googlecolab&logoColor=black)
 
-A more production-oriented structure can later be created:
+---
+
+# 📂 Project Structure
 
 ```text
 Fraud-Detection/
 │
-├── data/
+├── 📓 fraud_detection_ml.ipynb
+│
+├── 📁 data/
 │   └── Fraud_Analysis_Dataset.csv
 │
-├── notebooks/
-│   └── fraud_detection.ipynb
+├── 📁 models/
+│   └── fraud_detection_model.pkl
 │
-├── src/
+├── 📁 src/
 │   ├── preprocessing.py
 │   ├── train.py
 │   └── predict.py
 │
-├── models/
-│   └── fraud_detection_model.pkl
+├── 📄 requirements.txt
 │
-├── requirements.txt
-└── README.md
+└── 📄 README.md
 ```
 
-## Installation
+---
 
-Clone the repository:
+# 🚀 Getting Started
+
+## 1. Clone Repository
 
 ```bash
 git clone https://github.com/YOUR_USERNAME/fraud-detection.git
+```
+
+```bash
 cd fraud-detection
 ```
 
-Install the required libraries:
+## 2. Install Dependencies
 
 ```bash
 pip install pandas numpy matplotlib seaborn scikit-learn imbalanced-learn jupyter
 ```
 
-Launch Jupyter Notebook:
+## 3. Launch Notebook
 
 ```bash
 jupyter notebook
 ```
 
-Then open:
+Open:
 
 ```text
-Fraud Detection.ipynb
+fraud_detection_ml.ipynb
 ```
-
-## Running on Google Colab
-
-The notebook can also be executed using Google Colab.
-
-1. Open Google Colab.
-2. Upload `Fraud Detection.ipynb`.
-3. Upload the dataset.
-4. Update the dataset path.
-5. Run the notebook cells sequentially.
-
-## Key Findings
-
-The notebook found that:
-
-- Logistic Regression provides a useful baseline but has lower recall than the ensemble models.
-- Random Forest and Gradient Boosting substantially improve fraud classification performance.
-- Hyperparameter optimization improves the evaluated model performance.
-- Random Forest with RandomizedSearchCV achieved the highest reported F1 score in the notebook.
-- Recall is an important metric for this problem because undetected fraudulent transactions represent potential financial losses.
-
-## Important Methodological Note
-
-The current notebook applies SMOTE before the train-test split.
-
-For a more rigorous machine learning evaluation, the recommended approach is:
-
-```text
-Original Dataset
-      │
-      ▼
-Train-Test Split
-      │
-      ├── Training Data
-      │       │
-      │       └── SMOTE
-      │
-      └── Test Data
-              │
-              └── Keep Original Distribution
-```
-
-This prevents synthetic samples derived from the training data from influencing the test set and provides a more reliable estimate of model performance.
-
-## Future Improvements
-
-Potential improvements include:
-
-- Apply SMOTE only to the training data.
-- Use a preprocessing pipeline with `Pipeline` or `imblearn.Pipeline`.
-- Evaluate using ROC-AUC and PR-AUC.
-- Perform stratified cross-validation.
-- Analyze feature importance.
-- Add SHAP-based model explainability.
-- Build a real-time fraud prediction API.
-- Create a Streamlit dashboard.
-- Save the trained model using Joblib.
-- Add transaction-level prediction functionality.
-- Add cost-sensitive evaluation based on false-positive and false-negative costs.
-- Deploy the model as a web application or API.
-
-## Disclaimer
-
-This project is an educational machine learning implementation using a simulated financial transaction dataset. It should not be considered a production-ready fraud detection system for real financial institutions.
-
-## Author
-
-**Jamshed Ahmad**
-
-Data Science & Machine Learning
 
 ---
 
-⭐ If you find this project useful, consider giving the repository a star.
+# ☁️ Google Colab
+
+You can also execute the project directly in Google Colab.
+
+1. Open the notebook in Google Colab.
+2. Upload the dataset.
+3. Update the dataset path.
+4. Run the notebook cells sequentially.
+
+---
+
+# 🔮 Future Improvements
+
+The current project can be extended into a production-style fraud detection system.
+
+### 🔐 Model Improvements
+
+- [ ] Apply SMOTE only after train-test splitting
+- [ ] Build an `imblearn.Pipeline`
+- [ ] Stratified cross-validation
+- [ ] ROC-AUC evaluation
+- [ ] Precision-Recall AUC
+- [ ] Threshold optimization
+- [ ] Cost-sensitive learning
+
+### 🧠 Explainable AI
+
+- [ ] Feature importance
+- [ ] SHAP explanations
+- [ ] Individual transaction explanations
+
+### 🌐 Deployment
+
+- [ ] FastAPI prediction API
+- [ ] Streamlit dashboard
+- [ ] Real-time fraud prediction
+- [ ] Docker deployment
+- [ ] Cloud deployment
+
+---
+
+# 🧪 Recommended Production Architecture
+
+```mermaid
+flowchart LR
+
+A[💳 Transaction] --> B[⚙️ Preprocessing]
+
+B --> C[🧠 ML Model]
+
+C --> D{Fraud Probability}
+
+D -->|Low| E[🟢 Legitimate]
+D -->|High| F[🔴 Suspicious]
+
+F --> G[🚨 Fraud Alert]
+
+G --> H[👨‍💼 Investigation]
+```
+
+---
+
+# 📌 Key Learning Outcomes
+
+Through this project, the following Machine Learning concepts were implemented:
+
+```text
+✓ Exploratory Data Analysis
+✓ Data Cleaning
+✓ Feature Analysis
+✓ Categorical Encoding
+✓ Feature Scaling
+✓ Imbalanced Classification
+✓ SMOTE
+✓ Logistic Regression
+✓ Random Forest
+✓ Gradient Boosting
+✓ Hyperparameter Optimization
+✓ GridSearchCV
+✓ RandomizedSearchCV
+✓ Confusion Matrix
+✓ Precision
+✓ Recall
+✓ F1 Score
+```
+
+---
+
+# ⚠️ Project Limitation
+
+This project uses a simulated financial transaction dataset and should be considered an educational machine learning project.
+
+The reported model performance should not be interpreted as production-level fraud detection performance.
+
+The current notebook's preprocessing methodology should also be improved by preventing SMOTE-generated information from entering the test set.
+
+---
+
+# 👨‍💻 Author
+
+### Jamshed Ahmad
+
+**Data Science & Machine Learning**
+
+Skills demonstrated:
+
+`Python` · `Machine Learning` · `Pandas` · `NumPy` · `Scikit-Learn` · `SMOTE` · `Random Forest` · `Gradient Boosting` · `Data Visualization`
+
+---
+
+<p align="center">
+
+### ⭐ If you found this project useful, consider giving the repository a star!
+
+</p>
